@@ -1,4 +1,4 @@
-package DTO;
+package com.paymybuddy.proto.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

@@ -1,4 +1,4 @@
-package DTO;
+package com.paymybuddy.proto.dto;
 
 public class TransfertDTO extends ModelDTO {
     private double amount;
