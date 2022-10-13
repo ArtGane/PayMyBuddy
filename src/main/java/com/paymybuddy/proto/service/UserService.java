@@ -1,7 +1,7 @@
 package com.paymybuddy.proto.service;
 
-import com.paymybuddy.proto.model.UserEntity;
-import com.paymybuddy.proto.repository.UserRepository;
+import com.paymybuddy.proto.model.User;
+import com.paymybuddy.proto.repository.security.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<UserEntity> getUsers() {
+    public List<User> getUsers() {
         return userRepository.findAll();
     }
 
