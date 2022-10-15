@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Table(name="tb_transaction")
 @Data
 @NoArgsConstructor
-public class TransactionEntity {
+public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +26,7 @@ public class TransactionEntity {
     private TransactionType transactionType;
 
     @ManyToOne
-    private UserEntity user;
+    private User user;
 
     // Guetter et setters //
 
@@ -62,24 +62,24 @@ public class TransactionEntity {
         this.transactionType = transactionType;
     }
 
-    public UserEntity getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserEntity user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public UserEntity getFriend() {
+    public User getFriend() {
         return friend;
     }
 
-    public void setFriend(UserEntity friend) {
+    public void setFriend(User friend) {
         this.friend = friend;
     }
 
     @Nullable
     @ManyToOne
-    private UserEntity friend;
+    private User friend;
 
 }

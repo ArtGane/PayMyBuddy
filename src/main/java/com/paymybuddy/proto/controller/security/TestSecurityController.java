@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/test")
 public class TestSecurityController {
+
     @GetMapping("/all")
     public String allAccess() {
         return "Public Content.";
@@ -26,4 +27,5 @@ public class TestSecurityController {
     public String adminAccess() {
         return "Admin Board.";
     }
+
 }
