@@ -1,7 +1,7 @@
 package com.paymybuddy.proto.service.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.paymybuddy.proto.model.User;
+import com.paymybuddy.proto.model.Profile;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,15 +42,15 @@ public class UserDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static UserDetailsImpl build(User user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream()
+    public static UserDetailsImpl build(Profile profile) {
+        List<GrantedAuthority> authorities = profile.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
         return new UserDetailsImpl(
-                user.getId(),
-                user.getEmail(),
-                user.getPassword(),
+                profile.getId(),
+                profile.getEmail(),
+                profile.getPassword(),
                 authorities);
     }
 

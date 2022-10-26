@@ -26,7 +26,7 @@ public class Transaction {
     private TransactionType transactionType;
 
     @ManyToOne
-    private User user;
+    private Profile profile;
 
     // Guetter et setters //
 
@@ -62,24 +62,24 @@ public class Transaction {
         this.transactionType = transactionType;
     }
 
-    public User getUser() {
-        return user;
+    public Profile getProfile() {
+        return profile;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 
-    public User getFriend() {
+    public Profile getFriend() {
         return friend;
     }
 
-    public void setFriend(User friend) {
+    public void setFriend(Profile friend) {
         this.friend = friend;
     }
 
     @Nullable
     @ManyToOne
-    private User friend;
+    private Profile friend;
 
 }

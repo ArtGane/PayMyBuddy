@@ -3,6 +3,7 @@ package com.paymybuddy.proto.configuration.security;
 import com.paymybuddy.proto.service.security.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -13,11 +14,11 @@ import java.util.Date;
 @Slf4j
 public class TokenUtils {
 
-    @Value("${bezkoder.app.jwtSecret}")
-    private String jwtSecret;
+    @Value("${paymybuddy.app.tokenSecret}")
+    private String tokenSecret = Const.TOKEN_SECRET;
 
-    @Value("${bezkoder.app.jwtExpirationMs}")
-    private int jwtExpirationMs;
+    @Value("${paymybuddy.app.tokenExpirationMs}")
+    private String tokenExpirationMs = Const.TOKEN_EXPIRATION_MS;
 
     public String generateJwtToken(Authentication authentication) {
 
@@ -26,18 +27,18 @@ public class TokenUtils {
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .setExpiration(new Date((new Date()).getTime() + tokenExpirationMs))
+                .signWith(SignatureAlgorithm.HS512, tokenSecret)
                 .compact();
     }
 
     public String getUserNameFromJwtToken(String token) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parser().setSigningKey(tokenSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
     public boolean validateJwtToken(String authToken) {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+            Jwts.parser().setSigningKey(tokenSecret).parseClaimsJws(authToken);
             return true;
         } catch (MalformedJwtException e) {
             log.error("Invalid JWT token: {}", e.getMessage());

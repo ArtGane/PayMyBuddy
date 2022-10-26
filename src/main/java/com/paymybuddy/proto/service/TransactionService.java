@@ -1,6 +1,7 @@
 package com.paymybuddy.proto.service;
 
 import com.paymybuddy.proto.model.Transaction;
+import com.paymybuddy.proto.model.TransactionType;
 import com.paymybuddy.proto.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,4 +17,6 @@ public class TransactionService {
     public List<Transaction> getTransactions() {
         return transactionRepository.findAll();
     }
+
+//    public List<TransactionType> getOperations() { return transactionRepository.findAll(); }
 }

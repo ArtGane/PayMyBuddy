@@ -1,7 +1,7 @@
 package com.paymybuddy.proto.service.security;
 
-import com.paymybuddy.proto.model.User;
-import com.paymybuddy.proto.repository.security.UserRepository;
+import com.paymybuddy.proto.model.Profile;
+import com.paymybuddy.proto.repository.security.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,16 +13,16 @@ import javax.transaction.Transactional;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
-    UserRepository userRepository;
+    ProfileRepository profileRepository;
 
     // it will be by email but UserDetailsService got loadUserByUsername and I don't want to touch it
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email)
+        Profile profile = profileRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with email: " + email));
 
-        return UserDetailsImpl.build(user);
+        return UserDetailsImpl.build(profile);
     }
 
 }

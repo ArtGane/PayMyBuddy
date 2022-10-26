@@ -1,7 +1,7 @@
 package com.paymybuddy.proto.controller.security;
 
 import com.paymybuddy.proto.configuration.security.TokenUtils;
-import com.paymybuddy.proto.model.User;
+import com.paymybuddy.proto.model.Profile;
 import com.paymybuddy.proto.model.roles.ERole;
 import com.paymybuddy.proto.model.roles.Role;
 import com.paymybuddy.proto.payload.request.LoginRequest;
@@ -9,9 +9,10 @@ import com.paymybuddy.proto.payload.request.SignupRequest;
 import com.paymybuddy.proto.payload.response.MessageResponse;
 import com.paymybuddy.proto.payload.response.TokenResponse;
 import com.paymybuddy.proto.repository.security.RoleRepository;
-import com.paymybuddy.proto.repository.security.UserRepository;
+import com.paymybuddy.proto.repository.security.ProfileRepository;
 import com.paymybuddy.proto.service.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,12 +30,13 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
+@Configurable
 public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
 
     @Autowired
-    UserRepository userRepository;
+    ProfileRepository profileRepository;
 
     @Autowired
     RoleRepository roleRepository;
@@ -43,7 +45,7 @@ public class AuthController {
     PasswordEncoder encoder;
 
     @Autowired
-    TokenUtils jwtUtils;
+    TokenUtils tokenUtils;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -52,14 +54,14 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
+        String token = tokenUtils.generateJwtToken(authentication);
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new TokenResponse(jwt,
+        return ResponseEntity.ok(new TokenResponse(token,
                 userDetails.getId(),
                 userDetails.getEmail(),
                 roles));
@@ -67,20 +69,20 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+        if (profileRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already exist!"));
         }
 
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+        if (profileRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
 
         // Create new user's account
-        User user = new User(signUpRequest.getEmail(),
+        Profile profile = new Profile(signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
         Set<String> strRoles = signUpRequest.getRole();
@@ -107,8 +109,8 @@ public class AuthController {
             });
         }
 
-        user.setRoles(roles);
-        userRepository.save(user);
+        profile.setRoles(roles);
+        profileRepository.save(profile);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }

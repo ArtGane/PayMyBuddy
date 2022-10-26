@@ -1,6 +1,7 @@
 package com.paymybuddy.proto.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.paymybuddy.proto.dto.FriendDTO;
 import com.paymybuddy.proto.model.roles.Role;
 import org.hibernate.validator.constraints.Length;
 
@@ -16,19 +17,17 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tb_users", uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
-public class User {
+public class Profile {
 
-    public User() {
+    public Profile() {
     }
 
-    public User(String email, String password) {
+    public Profile(String email, String password) {
         this.email = email;
         this.password = password;
     }
 
-    public User(LocalDateTime creationDate, String lastname, String firstname, String email, String password, List<User> friends, Account account) {
-        this.email = email;
-        this.password = password;
+    public Profile(LocalDateTime creationDate, String lastname, String firstname, String email, String password, List<Friend> friends, Account account) {
         this.creationDate = creationDate;
         this.lastname = lastname;
         this.firstname = firstname;
@@ -54,7 +53,7 @@ public class User {
 
     @Email
     @NotBlank
-    @Column(unique = true)
+    @Column
     private String email;
 
     @NotBlank
@@ -62,7 +61,7 @@ public class User {
     private String password;
 
     @ManyToMany
-    private List<User> friends = new ArrayList<>();
+    private List<Friend> friends = new ArrayList<>();
     // path : /api/v1/users/{id}/friends
 
     @OneToOne
@@ -124,11 +123,11 @@ public class User {
         this.password = password;
     }
 
-    public List<User> getFriends() {
+    public List<Friend> getFriends() {
         return friends;
     }
 
-    public void setFriends(List<User> friends) {
+    public void setFriends(List<Friend> friends) {
         this.friends = friends;
     }
 
