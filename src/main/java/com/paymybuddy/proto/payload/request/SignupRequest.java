@@ -1,5 +1,7 @@
 package com.paymybuddy.proto.payload.request;
 
+import com.paymybuddy.proto.model.Account;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -9,6 +11,9 @@ public class SignupRequest {
 
     @Size(min = 3, max = 20)
     private String lastname;
+
+    @Size(min = 3, max = 20)
+    private String firstname;
 
     @NotBlank
     @Size(max = 50)
@@ -24,6 +29,14 @@ public class SignupRequest {
     public String getLastname() { return lastname; }
 
     public void setLastname(String lastname) { this.lastname = lastname; }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
 
     public String getEmail() {
         return email;

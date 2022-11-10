@@ -1,7 +1,5 @@
 package com.paymybuddy.proto.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.paymybuddy.proto.dto.FriendDTO;
 import com.paymybuddy.proto.model.roles.Role;
 import org.hibernate.validator.constraints.Length;
 
@@ -10,7 +8,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,7 +24,7 @@ public class Profile {
         this.password = password;
     }
 
-    public Profile(LocalDateTime creationDate, String lastname, String firstname, String email, String password, List<Friend> friends, Account account) {
+    public Profile(LocalDateTime creationDate, String lastname, String firstname, String email, String password, List<Profile> friends, Account account) {
         this.creationDate = creationDate;
         this.lastname = lastname;
         this.firstname = firstname;
@@ -41,8 +38,6 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime creationDate;
 
     @Length(max = 100)
@@ -61,14 +56,13 @@ public class Profile {
     private String password;
 
     @ManyToMany
-    private List<Friend> friends = new ArrayList<>();
-    // path : /api/v1/users/{id}/friends
+    private List<Profile> friends;
 
     @OneToOne
     private Account account;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "user_roles",
+    @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
@@ -123,20 +117,12 @@ public class Profile {
         this.password = password;
     }
 
-    public List<Friend> getFriends() {
+    public List<Profile> getFriends() {
         return friends;
     }
 
-    public void setFriends(List<Friend> friends) {
+    public void setFriends(List<Profile> friends) {
         this.friends = friends;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
 
     public Set<Role> getRoles() {
@@ -145,5 +131,13 @@ public class Profile {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

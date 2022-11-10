@@ -2,15 +2,20 @@ package com.paymybuddy.proto.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="tb_account")
+@Table(name="tb_accounts")
 @Data
 public class Account {
+    public Account(int id, LocalDateTime creationDate) {
+        this.id = id;
+        this.creationDate = creationDate;
+    }
+    public Account() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,14 +24,11 @@ public class Account {
     @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
     private LocalDateTime creationDate;
 
-    @Column(unique = true)
-    @Length(max = 10, min = 10)
-    private String accountNumber;
     private double balance;
 
     // Getters et setters //
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -40,14 +42,6 @@ public class Account {
 
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
-    }
-
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
     }
 
     public double getBalance() {
