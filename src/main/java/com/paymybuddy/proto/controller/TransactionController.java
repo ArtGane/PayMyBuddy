@@ -17,12 +17,12 @@ public class TransactionController {
     TransactionService transactionService;
 
     @GetMapping()
-    public List<Transaction> getAllTransactions(@RequestParam Profile profile) {
-        return transactionService.getAllTransactions(profile);
+    public List<Transaction> getAllTransactions() {
+        return transactionService.getAllTransactions();
     }
 
     @PostMapping
-    public Transaction payFriend(@RequestParam String email, @RequestParam int amount) {
-        return transactionService.paidFriend();
+    public Transaction payFriend(@RequestParam String firstname, @RequestParam int amount) {
+        return transactionService.paidFriend(firstname, amount);
     }
 }
