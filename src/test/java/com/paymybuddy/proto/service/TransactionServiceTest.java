@@ -10,7 +10,6 @@ class TransactionServiceTest {
 
     @Test
     void getTransactionsTest() {
-        transactionService.getTransactions();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.paymybuddy.proto.controller;
 
+import com.paymybuddy.proto.dto.FriendDTO;
 import com.paymybuddy.proto.model.Profile;
 import com.paymybuddy.proto.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
-    @PutMapping("/") // Refait un id à chaque fois
+    @PutMapping("/") // Refait un id à chaque fois si pas rentré pour les tests
     public Profile updateProfile(@RequestBody Profile profile) {
         return profileService.updateProfile(profile);
     }
@@ -26,7 +27,7 @@ public class ProfileController {
     }
 
     @PostMapping("/addConnection")
-    public List<Profile> addFriend(@RequestParam String email) {
+    public List<FriendDTO> addFriend(@RequestParam String email) {
         return profileService.addFriend(email);
     }
 }

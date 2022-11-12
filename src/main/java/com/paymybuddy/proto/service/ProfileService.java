@@ -1,16 +1,20 @@
 package com.paymybuddy.proto.service;
 
+import com.paymybuddy.proto.configuration.SecurityConfig;
+import com.paymybuddy.proto.dto.FriendDTO;
 import com.paymybuddy.proto.model.Profile;
 import com.paymybuddy.proto.repository.security.ProfileRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Slf4j
+@Transactional
 public class ProfileService {
 
     @Autowired
@@ -29,10 +33,16 @@ public class ProfileService {
         profileRepository.delete(profile);
     }
 
-    public List<Profile> addFriend(String email) {
-        Optional<Profile> profile = getProfile(email);
-        List<Profile> friends = profile.get().getFriends();
+    public List<FriendDTO> addFriend(String email) {
+        Optional<Profile> friendProfile = getProfile(email);
+        FriendDTO friend = new FriendDTO(friendProfile.get().getFirstname(), email);
+
+        List<FriendDTO> friends = profileRepository.getFriends();
+        friends.add(friend);
+
         return friends;
     }
-
+    public List<FriendDTO> getFriends() {
+        return profileRepository.getFriends();
+    }
 }

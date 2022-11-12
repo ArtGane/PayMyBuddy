@@ -1,5 +1,6 @@
 package com.paymybuddy.proto.model;
 
+import com.paymybuddy.proto.dto.FriendDTO;
 import com.paymybuddy.proto.model.roles.Role;
 import org.hibernate.validator.constraints.Length;
 
@@ -24,7 +25,7 @@ public class Profile {
         this.password = password;
     }
 
-    public Profile(LocalDateTime creationDate, String lastname, String firstname, String email, String password, List<Profile> friends, Account account) {
+    public Profile(LocalDateTime creationDate, String lastname, String firstname, String email, String password, List<FriendDTO> friends, Account account) {
         this.creationDate = creationDate;
         this.lastname = lastname;
         this.firstname = firstname;
@@ -56,7 +57,7 @@ public class Profile {
     private String password;
 
     @ManyToMany
-    private List<Profile> friends;
+    private List<FriendDTO> friends;
 
     @OneToOne
     private Account account;
@@ -117,11 +118,11 @@ public class Profile {
         this.password = password;
     }
 
-    public List<Profile> getFriends() {
+    public List<FriendDTO> getFriends() {
         return friends;
     }
 
-    public void setFriends(List<Profile> friends) {
+    public void setFriends(List<FriendDTO> friends) {
         this.friends = friends;
     }
 
