@@ -20,4 +20,5 @@ public interface ProfileRepository extends JpaRepository<Profile, Long> {
     List<FriendDTO> addFriends(String email);
 
     List<FriendDTO> getFriends();
+    int getId();
 }

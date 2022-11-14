@@ -29,14 +29,20 @@ public class TransactionService {
     }
 
     public Transaction paidFriend(String firstname, int amount) {
+
         List<FriendDTO> friends = profileRepository.getFriends();
         FriendDTO friend = (FriendDTO) friends.stream().filter(n -> n.getFirstname().equals(firstname));
 
+        Account userAccount = accountRepository.getAccount(profileRepository.getId());
+        Account friendAccount = friend.getAccount(friend.getId());
 
-        Account account = ;
+        if (userAccount.getBalance() >= amount) {
+            double userBalance = ((userAccount.getBalance()) - amount); 
+            userAccount.setBalance(userBalance);
 
-
-        // verifier solde du compte =! decouvert
+            double friendBalance = ((friendAccount.getBalance()) + amount);
+            friend.setBalance(friendBalance);
+        } 
     }
 
     public List<Transaction> getOperations() { return transactionRepository.findAll(); }
