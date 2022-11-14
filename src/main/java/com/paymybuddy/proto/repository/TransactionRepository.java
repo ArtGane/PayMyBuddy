@@ -14,7 +14,11 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
 
     List<Transaction> getAllTransactions(Profile profile);
 
-    Transaction paidFriend(String email, int amount);
+    Transaction transfer(String email, int amount);
+
+    Transaction withdrawal();
+
+    Transaction deposit();
 
     //List<Enum.EnumDesc> getAllTransfers(List<Transaction> transactions);
 }

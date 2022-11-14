@@ -22,4 +22,13 @@ public class AccountService {
         return accountRepository.findById(id_user);
     }
 
+    public boolean verifyBalanceAccount(int amount) {
+        Account account = accountRepository;
+        if (account.getBalance() < amount) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }
