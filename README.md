@@ -32,3 +32,23 @@ Chef de projet chez Pay My Buddy
 
 ![maquette_transfert](https://user-images.githubusercontent.com/67195863/201714138-de32bfa7-9a49-460d-a822-7b21d26da6f2.png)
 ![maquette_login](https://user-images.githubusercontent.com/67195863/201714152-00525b2c-4768-4e2e-aeff-4ca0b92e6a0c.png)
+
+Livrables
+Le diagramme de classe UML, ajouté au fichier README sur GitHub, explicitant la structure des classes du modèle.
+Le modèle physique de données, ajouté au fichier README sur GitHub, explicitant la structure des tables de la base de données.
+Les scripts SQL de base de données, enregistrés dans au fichier sur GitHub, pour les tables et autres objets de support que vous souhaitez utiliser, par exemple des séquences.
+Un document TXT contenant le lien vers le repository GitHub contenant le code de votre application web basée sur Java qui inclut :
+une couche DAL/référentiel pour interagir avec les tables de la base de données ;
+une méthode sécurisée de connexion à la base de données depuis le code ;
+la gestion des transactions (commits et rollback) ;
+une interface web se basant sur les maquettes et exploitant la couche DAL.
+Pour faciliter votre passage devant le jury, déposez sur la plateforme, dans un dossier zip nommé “Titre_du_projet_nom_prénom”, avec tous les livrables du projet comme suit : Nom_Prénom_n° du livrable_nom du livrable_date de démarrage du projet. Cela donnera : 
+
+Compétences évaluées
+Implémenter un schéma de données dans une base relationnelle
+Concevoir l'architecture technique d'une application à l'aide de diagramme UML
+Construire une application web java avec le pattern repository
+Réaliser un schéma de conception de la base de données de l’application
+
+Insérez schéma uml
+Insérez schéma bdd
