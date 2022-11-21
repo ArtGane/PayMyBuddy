@@ -1,10 +1,8 @@
 package com.paymybuddy.proto.service;
 
-import com.paymybuddy.proto.configuration.SecurityConfig;
 import com.paymybuddy.proto.dto.FriendDTO;
 import com.paymybuddy.proto.model.Profile;
 import com.paymybuddy.proto.repository.security.ProfileRepository;
-import com.paymybuddy.proto.service.security.UserDetailsImpl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +20,6 @@ public class ProfileService {
     @Autowired
     ProfileRepository profileRepository;
 
-    @Autowired
-    UserDetailsImpl userDetailsImpl;
-
     public Optional<Profile> findByEmail(String email) {
         return profileRepository.findByEmail(email);
     }
@@ -35,20 +30,6 @@ public class ProfileService {
 
     public void removeProfile(Profile profile) {
         profileRepository.delete(profile);
-    }
-
-    public List<FriendDTO> addFriend(String email) {
-        Optional<Profile> friendProfile = getProfile(email);
-        FriendDTO friend = new FriendDTO(friendProfile.get().getFirstname(), email);
-
-        List<FriendDTO> friends = profileRepository.getFriends();
-        friends.add(friend);
-
-        return friends;
-    }
-
-    public List<FriendDTO> getFriends() {
-        return profileRepository.getFriends();
     }
 
     public int getId() {

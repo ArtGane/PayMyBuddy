@@ -12,13 +12,14 @@ import java.util.Optional;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
 
-    List<Transaction> getAllTransactions(Profile profile);
+    List<Transaction> getAllTransactions();
 
-    Transaction transfer(String email, int amount);
+    Transaction transfer(String email, double amount);
 
-    Transaction withdrawal();
+    Transaction withdrawal(double amount);
 
-    Transaction deposit();
+    Transaction deposit(double amount);
 
-    //List<Enum.EnumDesc> getAllTransfers(List<Transaction> transactions);
+    boolean verifyAccount(double amount);
+
 }

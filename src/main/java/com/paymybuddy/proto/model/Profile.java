@@ -11,6 +11,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -25,7 +26,7 @@ public class Profile {
         this.password = password;
     }
 
-    public Profile(LocalDateTime creationDate, String lastname, String firstname, String email, String password, List<FriendDTO> friends, Account account) {
+    public Profile(LocalDateTime creationDate, String lastname, String firstname, String email, String password, List<Profile> friends, Account account) {
         this.creationDate = creationDate;
         this.lastname = lastname;
         this.firstname = firstname;
@@ -57,9 +58,10 @@ public class Profile {
     private String password;
 
     @ManyToMany
-    private List<FriendDTO> friends;
+    private List<Profile> friends;
 
     @OneToOne
+    @JoinColumn(name = "account_id")
     private Account account;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -118,11 +120,15 @@ public class Profile {
         this.password = password;
     }
 
-    public List<FriendDTO> getFriends() {
+    public List<Profile> getFriends() {
         return friends;
     }
 
-    public void setFriends(List<FriendDTO> friends) {
+    public void addFriend(Profile profile) {
+        this.friends.add(profile);
+    }
+
+    public void setFriends(List<Profile> friends) {
         this.friends = friends;
     }
 

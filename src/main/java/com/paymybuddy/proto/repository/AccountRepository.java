@@ -9,5 +9,4 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     Account getAccount(int id_user);
 
-    boolean verifyAccount();
 }

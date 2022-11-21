@@ -1,7 +1,6 @@
 package com.paymybuddy.proto.controller.security;
 
 import com.paymybuddy.proto.configuration.security.TokenUtils;
-import com.paymybuddy.proto.dto.FriendDTO;
 import com.paymybuddy.proto.model.Account;
 import com.paymybuddy.proto.model.Profile;
 import com.paymybuddy.proto.model.roles.ERole;
@@ -102,7 +101,7 @@ public class AuthController {
         Set<Role> roles = new HashSet<>();
 
         // Create empty list of friends for add it later
-        List<FriendDTO> friends = new ArrayList<>();
+        List<Profile> friends = new ArrayList<>();
 
         if (strRoles == null) {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)

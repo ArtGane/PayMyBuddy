@@ -28,6 +28,23 @@ public class Transaction {
     @ManyToOne
     private Profile profile;
 
+    @Nullable
+    @ManyToOne
+    private Profile friend;
+
+    public Transaction(double amount, TransactionType transactionType, Profile profile, Profile friend) {
+        this.amount = amount;
+        this.transactionType = transactionType;
+        this.profile = profile;
+        this.friend = friend;
+    }
+
+    public Transaction(double amount, TransactionType transactionType) {
+        this.amount = amount;
+        this.transactionType = transactionType;
+    }
+
+
     // Guetter et setters //
 
     public long getId() {
@@ -77,9 +94,5 @@ public class Transaction {
     public void setFriend(Profile friend) {
         this.friend = friend;
     }
-
-    @Nullable
-    @ManyToOne
-    private Profile friend;
 
 }

@@ -19,6 +19,7 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "account_id")
     private int id;
 
     @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")

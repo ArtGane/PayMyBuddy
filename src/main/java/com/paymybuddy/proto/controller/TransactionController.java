@@ -20,9 +20,4 @@ public class TransactionController {
     public List<Transaction> getAllTransactions() {
         return transactionService.getAllTransactions();
     }
-
-    @PostMapping
-    public Transaction payFriend(@RequestParam String firstname, @RequestParam int amount) {
-        return transactionService.paidFriend(firstname, amount);
-    }
 }

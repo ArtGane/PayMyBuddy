@@ -10,8 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class ProfileRepositoryTest {
 
-    // ##########################REPARER AUTOWIRED CASSE########################## //
-
     @Test
     void findByEmailTest() {
     }
