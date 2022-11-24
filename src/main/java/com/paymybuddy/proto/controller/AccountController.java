@@ -20,5 +20,4 @@ public class AccountController {
         return accountRepository.findById(user_id);
     }
 
-
 }

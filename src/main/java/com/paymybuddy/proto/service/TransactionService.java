@@ -1,8 +1,6 @@
 package com.paymybuddy.proto.service;
 
-import com.paymybuddy.proto.dto.FriendDTO;
 import com.paymybuddy.proto.model.Account;
-import com.paymybuddy.proto.model.Profile;
 import com.paymybuddy.proto.model.Transaction;
 import com.paymybuddy.proto.model.TransactionType;
 import com.paymybuddy.proto.repository.AccountRepository;
@@ -62,7 +60,9 @@ public class TransactionService {
         }
     }
 
-    public Transaction transfer(Account userAccount, Account friendAccount, double amount) {
+    public Transaction transfer(Account userAccount, int friendAccountId, double amount) {
+        // body = compte existant mais id de ami ?
+        Account friendAccount = accountRepository.getReferenceById(friendAccountId);
 
         if (verifyAccount(userAccount, amount)) {
             double userBalance = ((userAccount.getBalance()) - amount);

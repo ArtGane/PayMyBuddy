@@ -1,5 +1,6 @@
 package com.paymybuddy.proto.controller;
 
+import com.paymybuddy.proto.model.Account;
 import com.paymybuddy.proto.model.Profile;
 import com.paymybuddy.proto.model.Transaction;
 import com.paymybuddy.proto.repository.TransactionRepository;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/transactions")
+@RequestMapping("api/profile/{user_id}/transfer")
 @RestController
 public class TransactionController {
 
@@ -19,5 +20,20 @@ public class TransactionController {
     @GetMapping()
     public List<Transaction> getAllTransactions() {
         return transactionService.getAllTransactions();
+    }
+
+    @GetMapping("/{friend_account_id}")
+    public Transaction transfer(@RequestBody Account user_account_id, @PathVariable int friend_account_id, @RequestParam double amount) {
+        return transactionService.transfer(user_account_id, friend_account_id, amount);
+    }
+
+    @GetMapping("/deposit")
+    public Transaction deposit(@RequestBody Account account, @RequestParam int amount) {
+        return transactionService.deposit(account, amount);
+    }
+
+    @GetMapping("/withdrawal")
+    public Transaction wihdrawal(@RequestBody Account account, @RequestParam int amount) {
+        return transactionService.withdrawal(account, amount);
     }
 }
