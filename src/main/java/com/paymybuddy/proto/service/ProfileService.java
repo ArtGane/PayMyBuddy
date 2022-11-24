@@ -1,6 +1,5 @@
 package com.paymybuddy.proto.service;
 
-import com.paymybuddy.proto.dto.FriendDTO;
 import com.paymybuddy.proto.model.Profile;
 import com.paymybuddy.proto.repository.security.ProfileRepository;
 
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,7 +30,4 @@ public class ProfileService {
         profileRepository.delete(profile);
     }
 
-    public int getId() {
-        return profileRepository.getId();
-    }
 }

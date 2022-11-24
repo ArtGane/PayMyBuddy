@@ -5,6 +5,7 @@ import com.paymybuddy.proto.repository.security.ProfileRepository;
 import com.paymybuddy.proto.service.ProfileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +22,8 @@ public class ProfileController {
     private ProfileRepository profileRepository;
 
     @PutMapping("/update") // Refait un id à chaque fois si pas rentré pour les tests
-    public Optional<Profile> updateProfile(@RequestBody Profile profile) {
-        return profileRepository.updateProfile(profile);
+    public Profile updateProfile(@RequestBody Profile profile) {
+        return profileRepository.saveAndFlush(profile);
     }
 
     @GetMapping()
@@ -39,7 +40,7 @@ public class ProfileController {
             user.get().addFriend(friend.get());
             profileRepository.saveAndFlush(user.get());
         } else {
-            log.error("");
+            log.error("User or friend isn't present");
         }
 
         return user.get().getFriends();

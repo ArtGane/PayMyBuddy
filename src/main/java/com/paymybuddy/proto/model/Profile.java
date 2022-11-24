@@ -1,7 +1,7 @@
 package com.paymybuddy.proto.model;
 
-import com.paymybuddy.proto.dto.FriendDTO;
 import com.paymybuddy.proto.model.roles.Role;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -11,11 +11,11 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Entity
 @Table(name = "tb_users", uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
+@Slf4j
 public class Profile {
 
     public Profile() {
@@ -125,7 +125,11 @@ public class Profile {
     }
 
     public void addFriend(Profile profile) {
-        this.friends.add(profile);
+        if (!this.friends.contains(profile)) {
+            this.friends.add(profile);
+        } else {
+            log.error(profile + " already exists in your list");
+        }
     }
 
     public void setFriends(List<Profile> friends) {

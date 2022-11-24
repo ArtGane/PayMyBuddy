@@ -13,8 +13,7 @@ import java.util.Optional;
 @Component
 public interface ProfileRepository extends JpaRepository<Profile, Long> {
 
-     Optional<Profile> updateProfile(Profile profile);
     Optional<Profile> findByEmail(String email);
     boolean existsByEmail(String email);
-    int getId();
+
 }
