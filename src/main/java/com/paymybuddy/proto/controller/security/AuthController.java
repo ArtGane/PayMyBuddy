@@ -13,6 +13,7 @@ import com.paymybuddy.proto.repository.AccountRepository;
 import com.paymybuddy.proto.repository.security.RoleRepository;
 import com.paymybuddy.proto.repository.security.ProfileRepository;
 import com.paymybuddy.proto.service.security.UserDetailsImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/auth")
 @Configurable
+@Slf4j
 public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;

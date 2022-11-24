@@ -1,24 +1,24 @@
 package com.paymybuddy.proto.controller;
 
 import com.paymybuddy.proto.model.Account;
-import com.paymybuddy.proto.service.AccountService;
+import com.paymybuddy.proto.repository.AccountRepository;
+import com.paymybuddy.proto.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@RequestMapping("/account")
+@RequestMapping("api/account")
 @RestController
 public class AccountController {
 
     @Autowired
-    AccountService accountService;
+    AccountRepository accountRepository;
 
-    @GetMapping()
-    public Optional<Account> getAccount(@RequestParam int userId) {
-        return accountService.getAccount(userId);
+    @GetMapping("/{user_id}")
+    public Optional<Account> getAccount(@PathVariable int user_id) {
+        return accountRepository.findById(user_id);
     }
+
+
 }
