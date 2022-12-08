@@ -61,9 +61,7 @@ public class TransactionService {
     }
 
     public Transaction transfer(Account userAccount, int friendAccountId, double amount) {
-        // body = compte existant mais id de ami ?
         Account friendAccount = accountRepository.getReferenceById(friendAccountId);
-
         if (verifyAccount(userAccount, amount)) {
             double userBalance = ((userAccount.getBalance()) - amount);
             userAccount.setBalance(userBalance);

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("api/profile/{user_id}/transfer")
+@RequestMapping("/api/transfer")
 @RestController
 public class TransactionController {
 
@@ -22,9 +22,9 @@ public class TransactionController {
         return transactionService.getAllTransactions();
     }
 
-    @GetMapping("/{friend_account_id}")
-    public Transaction transfer(@RequestBody Account user_account_id, @PathVariable int friend_account_id, @RequestParam double amount) {
-        return transactionService.transfer(user_account_id, friend_account_id, amount);
+    @PostMapping("/{friend_account_id}")
+    public Transaction transfer(@RequestBody Account userAccount, @PathVariable int friendAccountId, @RequestParam double amount) {
+        return transactionService.transfer(userAccount, friendAccountId, amount);
     }
 
     @GetMapping("/deposit")
@@ -33,7 +33,10 @@ public class TransactionController {
     }
 
     @GetMapping("/withdrawal")
-    public Transaction wihdrawal(@RequestBody Account account, @RequestParam int amount) {
+    public Transaction withdrawal(@RequestBody Account account, @RequestParam int amount) {
         return transactionService.withdrawal(account, amount);
     }
+
+    // void ?
+
 }
