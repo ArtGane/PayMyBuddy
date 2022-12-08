@@ -98,6 +98,7 @@ public class AuthController {
         Account account = new Account();
         account.setCreationDate(LocalDateTime.now());
         account.setBalance(0);
+//        account.setTransactions(new ArrayList<>());
 
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();

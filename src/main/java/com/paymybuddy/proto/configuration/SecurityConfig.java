@@ -3,6 +3,7 @@ package com.paymybuddy.proto.configuration;
 import com.paymybuddy.proto.configuration.security.AuthenticationEntry;
 import com.paymybuddy.proto.configuration.security.TokenFilter;
 import com.paymybuddy.proto.service.security.UserDetailsServiceImpl;
+import com.sun.net.httpserver.HttpExchange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.Filter;
+import java.io.OutputStream;
 
 
 @Configuration
@@ -61,6 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/profile/**").authenticated()
                 .antMatchers("/api/test/**").permitAll()
                 .anyRequest().authenticated();
 
