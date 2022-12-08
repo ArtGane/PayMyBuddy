@@ -23,8 +23,6 @@ class AccountServiceTest {
         Profile profile = new Profile();
         Account account = new Account();
         profile.setAccount(account);
-
-        accountService.getAccount(2);
     }
 
     @Test

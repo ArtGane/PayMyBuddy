@@ -2,13 +2,16 @@ package com.paymybuddy.proto.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name="tb_accounts")
 @Data
+@Slf4j
 public class Account {
     public Account(int id, LocalDateTime creationDate) {
         this.id = id;
@@ -27,29 +30,7 @@ public class Account {
 
     private double balance;
 
-    // Getters et setters //
+    @ManyToMany
+    private List<Transaction> transactions;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
 }
