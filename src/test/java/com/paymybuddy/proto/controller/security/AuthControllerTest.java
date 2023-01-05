@@ -1,27 +1,32 @@
 package com.paymybuddy.proto.controller.security;
 
-import com.paymybuddy.proto.model.roles.ERole;
-import com.paymybuddy.proto.payload.request.SignupRequest;
+
+import com.paymybuddy.proto.service.security.UserDetailsImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.ResponseEntity;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Collections;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@WebMvcTest(controllers = AuthController.class)
 class AuthControllerTest {
 
     @Autowired
-    public AuthController auth;
+    MockMvc mockMvc;
+
+    @Autowired
+    UserDetailsImpl userDetails;
 
     @Test
-    void authenticateUserTest() {
+    void authenticateUserTest() throws Exception {
+        mockMvc.perform(post("/signin")).andExpect(status().isOk());
     }
 
     @Test
-    void registerUserTest() {
+    void registerUserTest() throws Exception {
+        mockMvc.perform(post("/signup")).andExpect(status().isOk());
     }
 }
