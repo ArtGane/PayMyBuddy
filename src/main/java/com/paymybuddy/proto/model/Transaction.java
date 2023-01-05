@@ -1,10 +1,10 @@
 package com.paymybuddy.proto.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sun.istack.Nullable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

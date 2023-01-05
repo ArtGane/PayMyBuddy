@@ -1,9 +1,7 @@
 package com.paymybuddy.proto.controller;
 
 import com.paymybuddy.proto.model.Account;
-import com.paymybuddy.proto.model.Profile;
 import com.paymybuddy.proto.model.Transaction;
-import com.paymybuddy.proto.repository.TransactionRepository;
 import com.paymybuddy.proto.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
